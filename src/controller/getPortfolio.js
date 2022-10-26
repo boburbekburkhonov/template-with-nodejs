@@ -5,7 +5,10 @@ export const getPortfolio = async (req, res, next) => {
   const info = await read('data.json')
   .catch(err => next(new errorHandlerError(err.message, 500)))
 
-  if(info) res.render('index.ejs', { info })
+  const requests = await read('requests.json')
+  .catch(err => next(new errorHandlerError(err.message, 500)))
+
+  if(info) res.render('index.ejs', { info, requests: requests })
 }
 
 export const postPortFolio = async (req, res, next) => {
@@ -20,5 +23,5 @@ export const postPortFolio = async (req, res, next) => {
   .catch(err => next(new errorHandlerError(err.message, 500)))
 
 
-  if(allRequests) res.send('Sizni so\'rovingiz qabul qilindi!')
+  if(newAllRequests) res.send('Sizni so\'rovingiz qabul qilindi!')
 }
